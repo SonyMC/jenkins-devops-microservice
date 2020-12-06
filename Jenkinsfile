@@ -4,42 +4,42 @@
 pipeline{
 	// agent is where the build is going to run
 	agent any 
-	stages{
-		stage("Build"){
-			steps{
+	stages {
+		stage("Build") {
+			steps {
 				echo "Build"
 			}
-		}post{
-			success{
+		}post {
+			success {
 				echo " Fairly Expected!!!"
 			}
 		}
-		stage("Test"){
-			steps{
+		stage("Test") {
+			steps {
 				echo " Test"
 			}
-		}post{
-			always{
+		}post {
+			always {
 				echo " Excellent stuff!!!"
 			}
 		}
-		stage("Integration Test"){
-			steps{
+		stage("Integration Test") {
+			steps {
 				echo "Integration Test"
 			}
-		}post{
-			always{
+		}post {
+			always {
 				echo " Superb!!!"
 			}
 		}
-	}post{
-		sucess{
+	}post {
+		sucess {
 			echo " I am Legend!!! I run always"
 		}
-		failure{
+		failure {
 			echo " Tunr on the Bat signal..."
 		}	
-		always{
+		always {
 			echo " Jai Dinkan"
 		}
 	}
