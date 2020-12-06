@@ -1,4 +1,7 @@
+// Node represt teh machine in which the pipeline runs
 node {
+
+// Scripted pipeline 	
 	stage('Build') {
 		echo "Build"
 	}
