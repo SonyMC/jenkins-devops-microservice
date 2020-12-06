@@ -33,6 +33,9 @@ pipeline{
 		}	
 		notBuilt {
 			echo " Give me red...unbuilt..."
+		}	
+		changed {
+			echo " If you want change you must bring change - Conductor Vasu"
 		}		
 		always {
 			echo " Jai Dinkan"
