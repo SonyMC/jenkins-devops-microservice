@@ -9,7 +9,8 @@ pipeline{
 			steps {
 				echo "Build"
 			}
-		}post {
+		}
+		post {
 			success {
 				echo " Fairly Expected!!!"
 			}
@@ -18,7 +19,8 @@ pipeline{
 			steps {
 				echo " Test"
 			}
-		}post {
+		}
+		post {
 			always {
 				echo " Excellent stuff!!!"
 			}
@@ -27,12 +29,14 @@ pipeline{
 			steps {
 				echo "Integration Test"
 			}
-		}post {
+		}
+		post {
 			always {
 				echo " Superb!!!"
 			}
 		}
-	}post {
+	}
+	post {
 		sucess {
 			echo " I am Legend!!! I run always"
 		}
