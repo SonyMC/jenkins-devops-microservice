@@ -10,29 +10,14 @@ pipeline{
 				echo "Build"
 			}
 		}
-		post {
-			success {
-				echo " Fairly Expected!!!"
-			}
-		}
 		stage("Test") {
 			steps {
 				echo " Test"
 			}
 		}
-		post {
-			always {
-				echo " Excellent stuff!!!"
-			}
-		}
 		stage("Integration Test") {
 			steps {
 				echo "Integration Test"
-			}
-		}
-		post {
-			always {
-				echo " Superb!!!"
 			}
 		}
 	}
