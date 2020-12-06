@@ -22,12 +22,18 @@ pipeline{
 		}
 	}
 	post {
-		sucess {
+		success {
 			echo " I am Legend!!! I run always"
 		}
 		failure {
-			echo " Tunr on the Bat signal..."
+			echo " Turn on the Bat signal..."
+		}
+		unstable {
+			echo " Whoa..earhquake...unstable..."
 		}	
+		notBuilt {
+			echo " Give me red...unbuilt..."
+		}		
 		always {
 			echo " Jai Dinkan"
 		}
