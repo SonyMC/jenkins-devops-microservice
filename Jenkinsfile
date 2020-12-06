@@ -9,16 +9,38 @@ pipeline{
 			steps{
 				echo "Build"
 			}
+		}post{
+			success{
+				echo " Fairly Expected!!!"
+			}
 		}
 		stage("Test"){
 			steps{
 				echo " Test"
 			}
+		}post{
+			always{
+				echo " Excellent stuff!!!"
+			}
 		}
 		stage("Integration Test"){
 			steps{
-				echo "Inbtegration Test"
+				echo "Integration Test"
 			}
+		}post{
+			always{
+				echo " Superb!!!"
+			}
+		}
+	}post{
+		sucess{
+			echo " I am Legend!!! I run always"
+		}
+		failure{
+			echo " Tunr on the Bat signal..."
+		}	
+		always{
+			echo " Jai Dinkan"
 		}
 	}
 }
