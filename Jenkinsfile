@@ -3,10 +3,12 @@
 // Stages , stage and steps are mandatory for a declarative script
 pipeline{
 	// agent is where the build is going to run
-	agent any 
+	// agent any
+	agent { docker { iamge "maven:3.6.3" }}  // using a docker image with maven installation  
 	stages {
 		stage("Build") {
 			steps {
+				sh 'mvn --version'
 				echo "Build"
 			}
 		}
