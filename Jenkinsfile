@@ -43,6 +43,31 @@ pipeline{
 				sh "mvn failsafe:integration-test failsafe:verify"
 			}
 		}
+		stage("Package"){
+			steps{
+				sh "mvn package -DskipTests"  // We are skipping ruuning teh tests again while buldign teh package as it has already been run in the previosu steps.
+			}
+
+		}
+		stage("Build Docker Image"){
+			steps{
+				// "docker build -t mailsonymathew/jenkins-currency-exchange-devops:$env.BUILD_TAG"  -> This is an old method of doing this
+				script{
+					dockerImage= docker.build("mailsonymathew/jenkins-currency-exchange-devops:${env.BUILD_TAG}")
+				}
+			}
+		}
+		stage("Push Docker Image"){
+			steps{
+				// "docker push mailsonymathew/jenkins-currency-exchange-devops:$env.BUILD_TAG"  -> This is an old method of doing this
+				script{
+					docker.withRegistry('','dockerHub'){  // add a wrapper providing docker credentails . dockerHub is the name of the Docker credentails we have provided in the Jenkins UI -> Manage Jenkins -> Maanage Credentials 
+						dockerImage.push();
+						dockerImage.push('latest') ; // add the latest tag to the docker Image.
+					}
+				}
+			}
+		}
 	}
 	post {
 		success {
