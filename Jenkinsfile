@@ -6,13 +6,20 @@ pipeline{
 	agent any
 	//agent { docker { image 'maven:3.6.3' } }  // using a docker image with maven installation  
 	//agent { docker { image 'node:15.3' } }  // using a docker image with node installation 
+	// The following environment extraction picks up the home folder location for Docker and Maven and sets the PATH. We use the names as specified in the Jnekins cosole via  manage Jenkins -> Global Tool Configuration
+	environment{
+		dockerHome = tool 'myDocker' // This is the Docker name we have in the Jenkins UI console -> Manage Jenkins -> Global Tool Configuration
+		mavenHome  = tool 'myMaven' // This is the Maven name we have in the Jenkins UI console -> Manage Jenkins -> Global Tool Configuration
+		//PATH = "$dockerHome/bin:$PATH"
+		PATH = "$dockerHome/bin:$mavenHome/bin:$PATH"
+	}
 	stages {
 		stage("Build") {
 			steps {
-				// sh 'mvn --version'
-				// sh 'node --version'
+				sh 'mvn --version'
+				sh 'docker version'
 				echo "Build"
-				echo "Pathe : $PATH"
+				echo "Path : $PATH"
 				echo "BUILD_NUMBER : $env.BUILD_NUMBER"
 				echo "BUILD_ID : $env.BUILD_ID"
 				echo "JOB_NAME : $env.JOB_NAME"
