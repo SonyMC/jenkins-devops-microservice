@@ -4,9 +4,11 @@ pipeline{
 		stage("Maven"){
 			steps{
 				script{
-					docker.withRegistry('','dockerHub'){  
+					docker.withRegistry('','dockerHub')
+				{  
 				sh 'mvn --version'   
 				}
+			    }	
 			}		
 		}		
 		stage('Build'){
@@ -46,3 +48,4 @@ pipeline{
 		}
 	}	
 	
+}
