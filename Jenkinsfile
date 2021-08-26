@@ -1,6 +1,11 @@
 pipeline{
-	agent any
+	agent { docker { image 'maven:3.6.3' } }
 	stages{
+		stage("Maven"){
+			steps{
+				sh 'mvn --version'   // show the maven version when we use the agent for maven image 
+			}
+		}		
 		stage('Build'){
 			steps{
 				echo "Build"
