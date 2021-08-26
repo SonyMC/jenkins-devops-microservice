@@ -4,8 +4,8 @@ pipeline{
 		stage("Maven"){
 			steps{
 				script{
-					docker.withRegistry('','dockerHub'){  // add a wrapper providing docker credentails . dockerHub is the name of the Docker credentails we have provided in the Jenkins UI -> Manage Jenkins -> Maanage Credentials 
-				sh 'mvn --version'   // show the maven version when we use the agent for maven image 
+					docker.withRegistry('','dockerHub'){  
+				sh 'mvn --version'   
 				}
 			}		
 		}		
