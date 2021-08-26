@@ -21,8 +21,8 @@ pipeline{
 		// }
 		stage("Checkout") {
 			steps {
-				sh 'mvn --version'
-				sh 'docker version'
+// 				sh 'mvn --version'
+// 				sh 'docker version'
 				echo "Build"
 			// All environment variables can be found in Pipeline Syntax-> Global Variables reference	
 				echo "Path : $PATH"
