@@ -59,7 +59,9 @@ pipeline{
 			steps{
 				// "docker build -t mailsonymathew/jenkins-currency-exchange-devops:$env.BUILD_TAG"  -> This is an old method of doing this
 				script{
+					docker.withRegistry('','dockerHub'){ // add a wrapper providing docker credentails . dockerHub is the name of the Docker credentails we have provided in the Jenkins UI -> Manage Jenkins -> Maanage Credentials 
 					dockerImage= docker.build("mailsonymathew/jenkins-currency-exchange-devops:${env.BUILD_TAG}")
+					}
 				}
 			}
 		}
