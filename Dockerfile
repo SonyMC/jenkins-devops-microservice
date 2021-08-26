@@ -1,3 +1,4 @@
+£ Here we are not building teh jar but rather directly adding it 
 FROM openjdk:8-jdk-alpine
 VOLUME /tmp
 EXPOSE 8000
