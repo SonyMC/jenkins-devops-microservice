@@ -55,7 +55,7 @@ pipeline{
 			steps{
 				script{
 					// dockerImage = docker.build("mailsonymathew/jenkins-currency-exchange-devops:${env.BUILD_TAG}")
-					dockerImage = docker.build registry + "${env.BUILD_TAG}" 
+					dockerImage = docker.build(registry + ":${env.BUILD_TAG}") 
 				}
 			}
 		}
