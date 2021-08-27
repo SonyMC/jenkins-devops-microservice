@@ -54,9 +54,9 @@ pipeline{
 		stage("Build Docker Image"){
 			steps{
 				script{
-					dockerImage = "docker build -t mailsonymathew/jenkins-currency-exchange-devops:$env.BUILD_TAG"
+					//dockerImage = "docker build -t mailsonymathew/jenkins-currency-exchange-devops:$env.BUILD_TAG"
 					 //dockerImage = docker.build("mailsonymathew/jenkins-currency-exchange-devops:${env.BUILD_TAG}")
-					//dockerImage = docker.build(registry + ":${env.BUILD_TAG}") 
+					dockerImage = docker.build  dockerRegistry + ":${env.BUILD_TAG}"
 				}
 			}
 		}
