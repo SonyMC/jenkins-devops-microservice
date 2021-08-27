@@ -14,15 +14,8 @@ pipeline{
 		PATH = "$dockerHome/bin:$mavenHome/bin:$PATH"
 	}
 	stages {
-		// stage("Maven"){
-		// 	steps{
-		// 		sh 'mvn --version'   // show the maven version when we use the agent for maven image 
-		// 	}
-		// }
 		stage("Checkout") {
 			steps {
-// 				sh 'mvn --version'
-// 				sh 'docker version'
 				echo "Build"
 			// All environment variables can be found in Pipeline Syntax-> Global Variables reference	
 				echo "Path : $PATH"
@@ -59,9 +52,7 @@ pipeline{
 			steps{
 				// "docker build -t mailsonymathew/jenkins-currency-exchange-devops:$env.BUILD_TAG"  -> This is an old method of doing this
 				script{
-					docker.withRegistry('https://registry.hub.docker.com/','dockerHub'){ // add a wrapper providing docker credentails . dockerHub is the name of the Docker credentails we have provided in the Jenkins UI -> Manage Jenkins -> Maanage Credentials 
-					dockerImage= docker.build("mailsonymathew/jenkins-currency-exchange-devops:${env.BUILD_TAG}")
-					}
+					dockerImage = docker.build("mailsonymathew/jenkins-currency-exchange-devops:${env.BUILD_TAG}")
 				}
 			}
 		}
@@ -98,4 +89,3 @@ pipeline{
 		}
 	}
 }
-
