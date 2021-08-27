@@ -12,6 +12,9 @@ pipeline{
 		mavenHome  = tool 'myMaven' // This is the Maven name we have in the Jenkins UI console -> Manage Jenkins -> Global Tool Configuration
 		//PATH = "$dockerHome/bin:$PATH"
 		PATH = "$dockerHome/bin:$mavenHome/bin:$PATH"
+		dockerRegistry = "mailsonymathew/currency-exchange-devops"  // we will use docker registry further down 
+		registryCredential = 'dockerHub' //dockerHub is the name of the Docker credentails we have provided in the Jenkins UI -> Manage Jenkins -> Manage Credentials 
+		dockerImage = ''
 	}
 	stages {
 		stage("Checkout") {
@@ -32,27 +35,27 @@ pipeline{
 				sh "mvn clean compile"
 			}
 		}
-		stage("Test") {
-			steps {
-				sh "mvn test"
-			}
-		}
-		stage("Integration Test") {
-			steps {
-				sh "mvn failsafe:integration-test failsafe:verify"
-			}
-		}
-		stage("Package"){
-			steps{
-				sh "mvn package -DskipTests"  // We are skipping ruuning the tests again while buldign the package as it has already been run in the previosu steps.
-			}
+// 		stage("Test") {
+// 			steps {
+// 				sh "mvn test"
+// 			}
+// 		}
+// 		stage("Integration Test") {
+// 			steps {
+// 				sh "mvn failsafe:integration-test failsafe:verify"
+// 			}
+// 		}
+// 		stage("Package"){
+// 			steps{
+// 				sh "mvn package -DskipTests"  // We are skipping ruuning the tests again while buldign the package as it has already been run in the previosu steps.
+// 			}
 
-		}
+// 		}
 		stage("Build Docker Image"){
 			steps{
-				// "docker build -t mailsonymathew/jenkins-currency-exchange-devops:$env.BUILD_TAG"  -> This is an old method of doing this
 				script{
-					dockerImage = docker.build("mailsonymathew/jenkins-currency-exchange-devops:${env.BUILD_TAG}")
+					// dockerImage = docker.build("mailsonymathew/jenkins-currency-exchange-devops:${env.BUILD_TAG}")
+					dockerImage = docker.build registry + "${env.BUILD_TAG}" 
 				}
 			}
 		}
@@ -60,9 +63,11 @@ pipeline{
 			steps{
 				// "docker push mailsonymathew/jenkins-currency-exchange-devops:$env.BUILD_TAG"  -> This is an old method of doing this
 				script{
-					docker.withRegistry('','dockerHub'){  // add a wrapper providing docker credentails . dockerHub is the name of the Docker credentails we have provided in the Jenkins UI -> Manage Jenkins -> Maanage Credentials 
-						dockerImage.push();
-						dockerImage.push('latest') ; // add the latest tag to the docker Image.
+// 					docker.withRegistry('','dockerHub'){  // add a wrapper providing docker credentails . dockerHub is the name of the Docker credentails we have provided in the Jenkins UI -> Manage Jenkins -> Maanage Credentials 
+// 						dockerImage.push();
+// 						dockerImage.push('latest') ; // add the latest tag to the docker Image.
+					docker.withRegistry('',registryCredential){
+						dockerImage.push()
 					}
 				}
 			}
