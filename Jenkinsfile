@@ -35,22 +35,22 @@ pipeline{
 				sh "mvn clean compile"
 			}
 		}
-// 		stage("Test") {
-// 			steps {
-// 				sh "mvn test"
-// 			}
-// 		}
-// 		stage("Integration Test") {
-// 			steps {
-// 				sh "mvn failsafe:integration-test failsafe:verify"
-// 			}
-// 		}
-// 		stage("Package"){
-// 			steps{
-// 				sh "mvn package -DskipTests"  // We are skipping ruuning the tests again while buldign the package as it has already been run in the previosu steps.
-// 			}
+		stage("Test") {
+			steps {
+				sh "mvn test"
+			}
+		}
+		stage("Integration Test") {
+			steps {
+				sh "mvn failsafe:integration-test failsafe:verify"
+			}
+		}
+		stage("Package"){
+			steps{
+				sh "mvn package -DskipTests"  // We are skipping ruuning the tests again while buldign the package as it has already been run in the previosu steps.
+			}
 
-// 		}
+		}
 		stage("Build Docker Image"){
 			steps{
 				script{
@@ -70,7 +70,7 @@ pipeline{
 					docker.withRegistry('',registryCredential){
 						dockerImage.push()
 					}
-//				}
+				}
 			}
 		}
 	}
